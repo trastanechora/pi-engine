@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"regexp"
 	"strconv"
 
+	"github.com/joho/godotenv"
 	"github.com/julienschmidt/httprouter"
 	"github.com/trastanechora/pi-engine/application"
 	"github.com/trastanechora/pi-engine/config"
@@ -19,8 +21,13 @@ var IsLetter = regexp.MustCompile(`^[a-zA-Z]+$`).MatchString
 
 // Run start server
 func Run(port int) error {
-	log.Printf("Server running at http://localhost:%d/", port)
-	return http.ListenAndServe(fmt.Sprintf(":%d", port), Routes())
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	log.Printf("Server running at http://localhost:%d/", os.Getenv("PORT"))
+	return http.ListenAndServe(fmt.Sprintf(":%d", os.Getenv("PORT")), Routes())
 }
 
 // Routes returns the initialized router
