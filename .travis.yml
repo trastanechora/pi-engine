@@ -12,8 +12,8 @@ env:
   - DOCKER_IMAGE_NAME="pi-engine"
   - DOCKER_HUB_ORG="trastanechora"
 before_script:
-- snap install kubectl --classic
-- kubectl version
-- kubectl version --client
-- docker --version
-- docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
+- sudo snap install kubectl --classic
+- sudo kubectl version
+- sudo kubectl version --client
+- sudo docker --version
+- sudo docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
