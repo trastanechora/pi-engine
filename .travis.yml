@@ -1,7 +1,10 @@
+sudo: required
 services:
 - docker
 os:
-- osx
+- linux
+notifications:
+  email: false
 branches:
 - chore/deployment
 env:
@@ -9,7 +12,8 @@ env:
   - DOCKER_IMAGE_NAME="pi-engine"
   - DOCKER_HUB_ORG="trastanechora"
 before_script:
-- brew install kubectl
+- snap install kubectl --classic
+- kubectl version
 - kubectl version --client
 - docker --version
 - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
