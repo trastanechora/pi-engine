@@ -1,15 +1,15 @@
 services:
-	- docker
+- docker
 os:
-	- osx
+- osx
 branches:
-	- chore/deployment
+- chore/deployment
 env:
   global:
   - DOCKER_IMAGE_NAME="pi-engine"
   - DOCKER_HUB_ORG="trastanechora"
 before_script:
-	- brew install kubectl
-	- kubectl version --client
-	- docker --version
-	- docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
+- brew install kubectl
+- kubectl version --client
+- docker --version
+- docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
