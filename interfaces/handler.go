@@ -26,8 +26,8 @@ func Run(port int) error {
 		log.Fatal("Error loading .env file")
 	}
 
-	log.Printf("Server running at http://localhost:%d/", os.Getenv("PORT"))
-	return http.ListenAndServe(fmt.Sprintf(":%d", os.Getenv("PORT")), Routes())
+	log.Printf("Server running at http://localhost:%s/", os.Getenv("PORT"))
+	return http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("PORT")), Routes())
 }
 
 // Routes returns the initialized router
