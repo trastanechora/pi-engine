@@ -10,6 +10,6 @@ branches:
 env:
   global:
   - DOCKER_IMAGE_NAME="pi-engine"
-	- DOCKER_HUB_ORG="trastanechora"
+  - DOCKER_HUB_ORG="trastanechora"
 before_script:
 - sudo docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
