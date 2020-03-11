@@ -1,1 +1,1 @@
-web: bin/pi-engine
+web: bin/go-getting-started
