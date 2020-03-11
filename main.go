@@ -1,16 +1,35 @@
 package main
 
 import (
-	// // open comment to deploy gcp app engine
+	"log"
+	"net/http"
+	"os"
 
-	"github.com/trastanechora/pi-engine/interfaces"
+	"github.com/gin-gonic/gin"
+	_ "github.com/heroku/x/hmetrics/onload"
+	"github.com/joho/godotenv"
 )
 
 func main() {
-	// // open comment to deploy gcp app engine
-	// router := interfaces.Routes()
-	// http.Handle("/", router)
-	// appengine.Main() // Start the gcp server
+	port := os.Getenv("PORT")
 
-	interfaces.Run(5000)
+	if port == "" {
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		} else {
+			port = os.Getenv("PORT")
+		}
+	}
+
+	router := gin.New()
+	router.Use(gin.Logger())
+	router.LoadHTMLGlob("templates/*.tmpl.html")
+	router.Static("/static", "static")
+
+	router.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+	})
+
+	router.Run(":" + port)
 }
