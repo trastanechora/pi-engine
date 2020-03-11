@@ -1,16 +1,29 @@
 package main
 
 import (
-	// // open comment to deploy gcp app engine
+	"log"
+	"net/http"
+	"os"
 
-	"github.com/trastanechora/pi-engine/interfaces"
+	"github.com/gin-gonic/gin"
+	_ "github.com/heroku/x/hmetrics/onload"
 )
 
 func main() {
-	// // open comment to deploy gcp app engine
-	// router := interfaces.Routes()
-	// http.Handle("/", router)
-	// appengine.Main() // Start the gcp server
+	port := os.Getenv("PORT")
 
-	interfaces.Run(8000)
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
+
+	router := gin.New()
+	router.Use(gin.Logger())
+	router.LoadHTMLGlob("templates/*.tmpl.html")
+	router.Static("/static", "static")
+
+	router.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+	})
+
+	router.Run(":" + port)
 }
